@@ -8,10 +8,12 @@ from card_pb2_grpc import CardServiceServicer, add_CardServiceServicer_to_server
 class CardService(CardServiceServicer):
 
     pokemonCards = []
+    currentId = 1
 
     async def CreateCard(self, request, context):
-        card = Card(id=1, name='Example Card')
+        card = Card(id=self.currentId, name='Example Card')
         self.pokemonCards.append(card);
+        self.currentId += 1
         return CreateCardResponse(card=card)
 
     async def GetCards(self, request, context):
